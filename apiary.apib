@@ -1,0 +1,247 @@
+FORMAT: 1A
+
+# CF Web Service API - Accounts Receivable
+Expose the AR customer & transaction data as resources.
+
+# Group Customers
+Customer related resources of the **CF Web Service Accounts Receivable API**
+
+## Customers [/api/ar/v1/customers/{company}]
+### List all Customers for a specific company [GET]
+
+By default, the call will return only 4 customer attributes:
+
++ arcu_company - Company code
++ arcu_custid - Customer code
++ arcu_lname - Customer long name
++ arcu_sname - Customer short name
+
+Additional customer attributes can be obtained by
+passing a fields query parameter with a comma separated 
+list of the required fields.
+
+The return list is ordered by company & customer id.
+
++ Parameters
+    + company (required) ... Company code.
+    
++ Response 200 (application/json)
+
+        [
+        {
+          "arcu_company": "CS ",
+          "arcu_lname": "CENSOF Holdings Berhad",
+          "arcu_sname": "CENSOF",
+          "arcu_custid": "CENSOF "
+        },
+        {
+          "arcu_company": "CS ",
+          "arcu_lname": "ACME Widgets Inc.",
+          "arcu_sname": "ACME Widgets",
+          "arcu_custid": "ACME   "
+        }
+        ]
+
+## Customer [/api/ar/v1/customers/{company}/{custid}]
+A single customer with selected details
+
+By default, the call will return only 4 customer attributes:
+
++ arcu_company - Company code
++ arcu_custid - Customer code
++ arcu_lname - Customer long name
++ arcu_sname - Customer short name
+
+Additional customer attributes can be obtained by
+passing a `fields` query parameter with a comma separated 
+list of the required fields.
+
++ Parameters
+    + company  (required) ... Company code.
+    + custid   (required) ... Customer Id.
+
+### Retrieve a Customer with default attributes [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "arcu_company": "CS ",
+                "arcu_lname": "CENSOF Holdings Berhad",
+                "arcu_sname": "CENSOF",
+                "arcu_custid": "CENSOF "
+            }
+
+## Customer [/api/ar/v1/customers/{company}/{custid}?fields=arcu_lname,arcu_status.arcu_credcat]
+
+A single customer with selected details. Additional customer attributes can be obtained by passing a `fields` 
+query parameter with a comma separated list of the required fields.  
+
++ Parameters
+    + company  (required) ... Company code.
+    + custid   (required) ... Customer Id.
+    + fields   (optional) ... A comma separated 
+list of the required fields.
+        + Values
+            + `arcu_company - Company code`
+            + `arcu_custid - Customer id`
+            + `arcu_lname - Customer long name`
+            + `arcu_sname - Customer short name`
+            + `arcu_phone - Phone number`
+            + `arcu_fax - Fax number`
+            + `arcu_email - Email address`
+            + `arcu_taxcode - Tax code`
+            + `arcu_discount - Discount percentage`
+            + `arcu_discdays - Discount days`
+            + `arcu_extref - External reference`
+            + `arcu_sttmntgroup - Statement group code`
+            + `arcu_sttmntdate - Last statement date`
+            + `arcu_credcat - Credit category code`
+            + `arcu_credlimit - Credit limit`
+            + `arcu_currency - Transaction currency code`
+            + `arcu_terms - Terms`
+            + `arcu_intrate - Overdue interest rate`
+            + `arcu_vatregno - VAT/GST registration number`
+            + `arcu_applycalc - Apply VAT/GST calculation`
+            + `arcu_fixcontract - Fixed contract pricing set`
+            + `arcu_promoprice - Promotional pricing set`
+            + `arcu_industry - Industry code`
+            + `arcu_territory - Territory code`
+            + `arcu_grouping - Grouping code`
+            + `arcu_credit - Allow credit`
+            + `arcu_agetype - Ageing type`
+            + `arcu_retenpc - Retention percentage`
+            + `arcu_ptdsale - Financial period to date sales`
+            + `arcu_ytdsate - Financial year to date sales`
+            + `arcu_cumsale - Cummulative sales`
+            + `arcu_lstinvdate - Last invoice date`
+            + `arcu_lstinvcurcode - Last invoice currency code`
+            + `arcu_lstinvamt - Last invoice amount`
+            + `arcu_lpaydate - Last payment date`
+            + `arcu_lpaycurcode - Last currency code`
+            + `arcu_lpayamt - Last payment amount`
+            + `arcu_createdate - Creation date`
+            + `arcu_status - Status`
+            
+
+### Retrieve a Customer with selected attributes [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "arcu_credcat": "STANDARD ",
+                "arcu_status": "O",
+                "arcu_lname": "CENSOF Holdings Berhad"
+            }
+   
+## Customer [/api/ar/v1/customers/{company}/{custid}?embed=customer_physicaladdress,customer_postaladdress]
+
+A single customer with embedded resources. Customer physical & postal addresses are accessible by passing
+the `embed` query parameter with a comma separated list of the addresses required. The embed parameter can be
+used in conjunction with the `fields` query parameter.
+
++ Parameters
+    + company  (required) ... Company code.
+    + custid   (required) ... Customer Id.
+    + embed   (optional) ... A comma separated list of resources to embed
+        + Values
+            + `customer_postaddress - Customer postal address`
+            + `customer_physicaladdress - Customer physical address`
+
+### Retrieve a Customer with embedded resources [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "customer_postaladdress": {
+                    "arcp_state": "SLG",
+                    "arcp_postadd4": "Seri Setia, Petaling Jaya",
+                    "arcp_postadd3": "Jalan SS9A/19 ",
+                    "arcp_postadd2": "Sunway PJ 51A ",
+                    "arcp_postadd1": "A-8, Block A, Level 8 ",
+                    "arcp_postcode": "47300 ",
+                    "arcp_country": "MALAYSIA ",
+                "   arcp_city": "KUALA LUMPUR "
+                },
+                "arcu_custid": "CENSOF ",
+                "arcu_lname": "CENSOF Holdings Berhad",
+                "arcu_company": "CS ",
+                "customer_physicaladdress": {
+                    "arcp_state": "SLG",
+                    "arcp_postadd4": "Seri Setia, Petaling Jaya",
+                    "arcp_postadd3": "Jalan SS9A/19 ",
+                    "arcp_postadd2": "Sunway PJ 51A ",
+                    "arcp_postadd1": "A-8, Block A, Level 8 ",
+                    "arcp_postcode": "47300 ",
+                    "arcp_country": "MALAYSIA ",
+                    "arcp_city": "KUALA LUMPUR "
+                },
+            "arcu_sname": "CENSOF"
+            }
+   
+
+# Group Openitems
+Open item related resources of the **CF Web Service Accounts Receivable API**
+
+## Openitems [/api/ar/v1/openitems/{company}/{custid}]
+### List all Openitems for a specific customer [GET]
+
+The return list is ordered by openitem item number (arcu_itemno).
+
++ Parameters
+    + company (required) ... Company code.
+    + custid (required) ... Customer id.
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+                {
+                    "aroi_batchdate": "2014-06-30",
+                    "leqopenamount": 86590.809,
+                    "aroi_refno": "BI013541 ",
+                    "aroi_amount": 348493,
+                    "aroi_itemtype": "INV",
+                    "aroi_company": "CS ",
+                    "aroi_secondref": "",
+                    "aroi_itemno": 19287,
+                    "aroi_curcode": "MYR",
+                    "aroi_custid": "CENSOF ",
+                    "aroi_docdate": "2014-06-30",
+                    "aroi_openamount": 30382.74,
+                    "aroi_duedate": "2014-07-30"
+                }
+            ]
+
+
+## Openitem [/api/ar/v1/openitems/{itemno}]
+A single openitem.
+
++ Parameters
+    + itemno  (required) ... Openitem number.
+
+### Retrieve an Openitem [GET]
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "aroi_batchdate": "2014-06-30",
+                "leqopenamount": 86590.81,
+                "aroi_refno": "BI013541 ",
+                "aroi_amount": 348493,
+                "aroi_itemtype": "INV",
+                "aroi_company": "CS ",
+                "aroi_secondref": "",
+                "aroi_itemno": 19287,
+                "aroi_curcode": "MYR",
+                "aroi_custid": "CENSOF ",
+                "aroi_docdate": "2014-06-30",
+                "aroi_openamount": 30382.74,
+                "aroi_duedate": "2014-07-30"
+            }
