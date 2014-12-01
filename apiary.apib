@@ -73,7 +73,7 @@ list of the required fields.
                 "arcu_custid": "CENSOF "
             }
 
-## Customer [/api/ar/v1/customers/{company}/{custid}?fields=arcu_lname,arcu_status.arcu_credcat]
+## Customer [/api/ar/v1/customers/{company}/{custid}?fields=attribute1,attribute2]
 
 A single customer with selected details. Additional customer attributes can be obtained by passing a `fields` 
 query parameter with a comma separated list of the required fields.  
@@ -189,7 +189,7 @@ Open item related resources of the **CF Web Service Accounts Receivable API**
 ## Openitems [/api/ar/v1/openitems/{company}/{custid}]
 ### List all Openitems for a specific customer [GET]
 
-The return list is ordered by openitem item number (arcu_itemno).
+The return list is ordered by openitem item number (aroi_itemno).
 
 + Parameters
     + company (required) ... Company code.
@@ -215,8 +215,70 @@ The return list is ordered by openitem item number (arcu_itemno).
                     "aroi_openamount": 30382.74,
                     "aroi_duedate": "2014-07-30"
                 }
+                {
+                    "aroi_batchdate": "2009-07-31",
+                    "leqopenamount": -195378.76,
+                    "aroi_refno": "000978 ",
+                    "aroi_amount": -58000,
+                    "aroi_itemtype": "CSH",
+                    "aroi_company": "CS ",
+                    "aroi_secondref": "",
+                    "aroi_itemno": 19356,
+                    "aroi_curcode": "MYR",
+                    "aroi_custid": "CENSOF",
+                    "aroi_docdate": "2014-07-31",
+                    "aroi_openamount": -66545.9,
+                    "aroi_duedate": "2014-07-31"
+                },
             ]
 
+## Openitems [/api/ar/v1/openitems/{company}/{custid}?sort=attribute1,attribute2]
+### List all Openitems for a specific customer, non standard sort [GET]
+
+By default, the return list is ordered by openitem item number (aroi_itemno) but by
+passing the query parameter sort. The value of the sort is a comma separated list of fields to sort by. A descending sort can be specified by prepending a - to a field in the sort list.
+
++ Parameters
+    + company (required) ... Company code.
+    + custid  (required) ... Customer id.
+    + sort    (optional) ... Attributes to sort by
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+                {
+                    "aroi_batchdate": "2009-07-31",
+                    "leqopenamount": -195378.76,
+                    "aroi_refno": "000978 ",
+                    "aroi_amount": -58000,
+                    "aroi_itemtype": "CSH",
+                    "aroi_company": "CS ",
+                    "aroi_secondref": "",
+                    "aroi_itemno": 19356,
+                    "aroi_curcode": "MYR",
+                    "aroi_custid": "CENSOF",
+                    "aroi_docdate": "2014-07-31",
+                    "aroi_openamount": -66545.9,
+                    "aroi_duedate": "2014-07-31"
+                },
+                {
+                    "aroi_batchdate": "2014-06-30",
+                    "leqopenamount": 86590.809,
+                    "aroi_refno": "BI013541 ",
+                    "aroi_amount": 348493,
+                    "aroi_itemtype": "INV",
+                    "aroi_company": "CS ",
+                    "aroi_secondref": "",
+                    "aroi_itemno": 19287,
+                    "aroi_curcode": "MYR",
+                    "aroi_custid": "CENSOF ",
+                    "aroi_docdate": "2014-06-30",
+                    "aroi_openamount": 30382.74,
+                    "aroi_duedate": "2014-07-30"
+                }
+            ]
 
 ## Openitem [/api/ar/v1/openitems/{itemno}]
 A single openitem.
