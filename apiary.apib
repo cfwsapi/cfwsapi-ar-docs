@@ -308,3 +308,37 @@ A single openitem.
                 "aroi_openamount": 30382.74,
                 "aroi_duedate": "2014-07-30"
             }
+
+## Allocated items [/api/ar/v1/reqallocs/{company}/{custid}?sort={attribute1},{attribute2}]
+### List all Allocated items for a specific customer, non standard sort [GET]
+
+By default, the return list is ordered by company, custid & from reference number (arrqa_company, arrqa_custid, arrqa_fmrefno) but by
+passing the query parameter sort, the sort order can be changed. The value of the sort is a comma separated list of fields to sort by. 
+A descending sort can be specified by prepending a - to a field in the sort list.
+
++ Parameters
+    + company (required) ... Company code.
+    + custid  (required) ... Customer id.
+    + sort    (optional) ... Attributes to sort by
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "arrqa_custid": "CENSOF",
+                "arrqa_fmitemtype": "PAY",
+                "arrqa_toamount": -1000,
+                "arrqa_torefno": "DEP00007 ",
+                "arrqa_tocompany": "CS  ",
+                "arrqa_fmrefno": "AD/REG000018 ",
+                "arrqa_company": "200 ",
+                "arrqa_todocdate": "2014-11-01",
+                "arrqa_batchid": "12345678 ",
+                "arrqa_module": "AR",
+                "arrqa_discdate": "",
+                "arrqa_toduedate": "2014-11-01",
+                "arrqa_allocamount": -1700,
+                "arrqa_toitemtype": "DEP",
+                "arrqa_discamount": ""
+            }   
