@@ -281,14 +281,61 @@ A descending sort can be specified by prepending a - to a field in the sort list
                 }
             ]
 
+## Openitems [/api/ar/v1/openitems/{company}/{custid}?state={state}]
+### List all Openitems for a specific customer filtered by an attribute comparision [GET]
+
++ Parameters
+    + company (required) ... Company code.
+    + custid  (required) ... Customer id.
+    + state (required) ... Openitem item status - open, closed, all.
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+                {
+                    "aroi_batchdate": "2009-07-31",
+                    "leqopenamount": -195378.76,
+                    "aroi_refno": "000978 ",
+                    "aroi_amount": -58000,
+                    "aroi_itemtype": "CSH",
+                    "aroi_company": "CS ",
+                    "aroi_secondref": "",
+                    "aroi_itemno": 19356,
+                    "aroi_curcode": "MYR",
+                    "aroi_custid": "CENSOF",
+                    "aroi_docdate": "2014-07-31",
+                    "aroi_openamount": -66545.9,
+                    "aroi_duedate": "2014-07-31"
+                },
+                {
+                    "aroi_batchdate": "2014-06-30",
+                    "leqopenamount": 86590.809,
+                    "aroi_refno": "BI013541 ",
+                    "aroi_amount": 348493,
+                    "aroi_itemtype": "INV",
+                    "aroi_company": "CS ",
+                    "aroi_secondref": "",
+                    "aroi_itemno": 19287,
+                    "aroi_curcode": "MYR",
+                    "aroi_custid": "CENSOF ",
+                    "aroi_docdate": "2014-06-30",
+                    "aroi_openamount": 30382.74,
+                    "aroi_duedate": "2014-07-30"
+                }
+            ]
+
 
 ## Openitems [/api/ar/v1/openitems/{company}/{custid}?filter={attribute}+{operator}+{value}]
 ### List all Openitems for a specific customer filtered by an attribute comparision [GET]
 
 + Parameters
+    + company (required) ... Company code.
+    + custid  (required) ... Customer id.
     + attribute (required) ... Attribute to filter by.
     + operator  (required) ... Comparison operator.
-    + value    (optional) ... Value to compare
+    + value    (required) ... Value to compare
 
 + Response 200 (application/json)
 
