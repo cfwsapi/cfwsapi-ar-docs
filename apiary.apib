@@ -281,13 +281,13 @@ A descending sort can be specified by prepending a - to a field in the sort list
                 }
             ]
 
-## Openitems [/api/ar/v1/openitems/{company}/{custid}?state={state}]
-### List all Openitems for a specific customer filtered by an attribute comparision [GET]
+## Openitems [/api/ar/v1/openitems/{company}/{custid}?status={state}]
+### List all Openitems for a specific customer with either open, closed or all [GET]
 
 + Parameters
     + company (required) ... Company code.
     + custid  (required) ... Customer id.
-    + state (required) ... Openitem item status - open, closed, all.
+    + status (required) ... Openitem item status - open, closed, all.
 
 + Response 200 (application/json)
 
